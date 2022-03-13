@@ -1,0 +1,116 @@
+{
+    "Coaches": [
+        {
+            "ACSleeper468": {
+                "CoachId": "ACSleeper468",
+                "CoachType": "ACSleeper",
+                "SeatsCount": "6",
+                "SeatsUnBookedCount": "6",
+                "SeatsBookedCount": 0,
+                "SeatDetails": [
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    }
+                ]
+            }
+        },
+        {
+            "NonACSleeper350": {
+                "CoachId": "NonACSleeper350",
+                "CoachType": "NonACSleeper",
+                "SeatsCount": "10",
+                "SeatsUnBookedCount": "10",
+                "SeatsBookedCount": "2",
+                "SeatDetails": [
+                    {
+                        "bookedStatus": true,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": "",
+                        "bookeddate": ""
+                    }
+                ]
+            }
+        }
+    ]
+}

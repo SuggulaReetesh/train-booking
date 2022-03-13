@@ -12,8 +12,14 @@ def Index():
 
 
 def getdata():
-    f = open('Booking.json', "r")
-    return json.loads(f.read())["Coaches"]
+    data=[]
+    if (not doesFileExists('Booking.json')):
+        data=[]
+        writedata(data)
+        return data
+    else:    
+        f = open('Booking.json', "r")
+        return json.loads(f.read())["Coaches"]
 
 
 def writedata(data):
@@ -25,21 +31,41 @@ def writedata(data):
             outfile.write(json_object)
 
 
+@app.route('/admin/Seats/<status>', methods=['GET', 'POST'])
+@app.route('/admin/Seats/<status>/<particular>')
+def SeatsStatus(status,particular=None):
+    data = getdata()
+    bookedcount =0
+    unbookedcount =0
+    if(request.method == 'GET'):
+        for dic in data:
+                for key in dic:
+                    if(key == status and particular =='booked'):
+                        return ({"SeatsCount":dic[status]['SeatsCount'], 'SeatsBookedCount':dic[status]['SeatsBookedCount']})
+                    elif(key==status and particular == 'unbooked'):
+                         return ({"SeatsCount":dic[status]['SeatsCount'],'SeatsUnBookedCount': dic[status]['SeatsUnBookedCount']})
+                    bookedcount = bookedcount + int(dic[key]['SeatsBookedCount'])
+                    unbookedcount = unbookedcount + int(dic[key]['SeatsUnBookedCount'])
+    if(particular == 'booked'):
+        return ({'bookedSeatsOfAllCoaches':bookedcount})    
+    elif(particular == 'unbooked'):
+        return ({'unbookedSeatsofAllCoaches':unbookedcount})
+    else:
+        return ({'bookedSeatsOfAllCoaches':bookedcount, 'unbookedSeatsofAllCoaches':unbookedcount})    
+
+
+
+
 @app.route('/admin', methods=['GET', 'POST'])
 def AdminDashboard():
-    if (not doesFileExists('Booking.json')):
-        coach = {
-            "Coaches": []
-        }
-        json_object = json.dumps(coach, indent=4)
-        with open("Booking.json", "w") as outfile:
-            outfile.write(json_object)
     data = getdata()
     if(request.method == 'POST'):
         seats = []
         for i in range(int(request.form.get('seats'))):
             seats.append({"bookedStatus": False,
-                          "passengerName": ""})
+                          "passengerName": "",
+                          "bookeddate":""
+                          })
         CoachId = str(request.form.get('coachtype') +
                       str(random.randint(100, 999)))
                       
@@ -47,6 +73,8 @@ def AdminDashboard():
             "CoachId": CoachId,
             "CoachType": request.form.get('coachtype'),
             "SeatsCount": request.form.get('seats'),
+            "SeatsUnBookedCount": request.form.get('seats'),
+            "SeatsBookedCount":0,
             "SeatDetails": seats
         }
         data.append({CoachId: CoachDetails})
@@ -72,6 +100,31 @@ def deletecoach(id):
         writedata(data)
     return render_template("admindashboard.html", data=data)
 
+@app.route("/admin/update/<coach>/<seat>", methods=["GET"])
+def updatecoach(coach,seat):
+    data = getdata()
+    if(request.method == 'GET'):
+        found = 0
+        seats = []
+        for i in range(int(seat)):
+            seats.append({"bookedStatus": False,
+                          "passengerName": "",
+                          "bookeddate":""
+                          })
+        for dic in data:
+            for key in dic:
+                if(key == coach):
+                    dic[coach]['SeatDetails'] = seats
+                    dic[coach]["SeatsUnBookedCount"] = seat
+                    dic[coach]["SeatsCount"] = seat
+                    dic[coach]["SeatsBookedCount"] = 0
+                    found = 1
+                    break
+            if(found == 1):
+                break
+        writedata(data)
+    return render_template("admindashboard.html", data=data)
+
 
 @app.route('/user',methods=['GET', 'POST'] )
 def UserDashBoard():
@@ -85,7 +138,10 @@ def UserDashBoard():
                     if(key == coach):
                         dic[coach]['SeatDetails'][int(seat)-1]['bookedStatus'] = True
                         dic[coach]['SeatDetails'][int(seat)-1]['passengerName'] = request.form.get('fname')
+                        dic[coach]['SeatDetails'][int(seat)-1]['bookeddate'] = request.form.get('date')
                         dic[coach]['SeatsCount'] =  str(int(dic[coach]['SeatsCount']) -1)
+                        dic[coach]['SeatsBookedCount'] =  str(int(dic[coach]['SeatsBookedCount']) +1)
+                        dic[coach]['SeatsUnBookedCount'] =  str(int(dic[coach]['SeatsUnBookedCount']) -1)
                         break
         writedata(data)          
     return render_template("userdashboard.html", data = getdata())
@@ -93,28 +149,31 @@ def UserDashBoard():
 def doesFileExists(filePathAndName):
     return os.path.exists(filePathAndName)
 
+class PassengerDetails:
+    Name=''
+    Gender=''
+    Age=''
 
 class SeatDetails:
     bookedStatus = False
     bookedDate= ''
-    passengerName = ''
+    passengerDetails = PassengerDetails()
 
 class CoachDetails:
     coachId =''
     seatsCount=''
     seatDetails = SeatDetails()
     coachType=''
+    SeatsBookedCount=''
+    SeatsUnBookedCount=''
 
 class Train:
     trainId=''
     noOfCoaches=''
-    coachesAssigned=''
-    From=''
-    To=''
-class PassengerDetails:
-    Name=''
-    Gender=''
-    Age=''
+    coachesAssigned=[]
+    FromStation=''
+    ToStation=''
+
 
     
 

@@ -39,6 +39,7 @@
         </form>
     </div>
     <br><br>
+    <p><a href="/admin/Seats/all">Get All booked and UnBookedSeats</a></p>
 
     <table style="width: 100%;">
         <tr>
@@ -52,7 +53,7 @@
             {% for attribute in record %}
             <td>{{ attribute }}</td>
             <td>{{ record[attribute].CoachType }}</td>
-            <td>{{ record[attribute].SeatsCount}}</td>
+            <td>{{ record[attribute].SeatsCount}} <a href="/admin/Seats/{{attribute}}/booked">BookedSeats</a><a href="/admin/Seats/{{attribute}}/unbooked">UnBookedSeats</a></td>
             <td>
                 {% for seat in record[attribute].SeatDetails%}
                 <label>{{loop.index}}</label>
