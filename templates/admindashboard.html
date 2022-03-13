@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Admin Operations</h1>
+    <div>
+        <a href="/admin">Admin</a>
+        <a href="/user">user</a>
+    </div>
+    <div style="text-align: center;">
+        <div style="font-weight: bold;">Add New Coach to Train</div><br>
+        <form action="/admin" method="post">
+            <div>
+                <label for="coachtype">Select the Coach you wish to Add:</label>
+                <select name="coachtype" id="coachtype" required>
+                    <option value="AC_Sleeper">A/C Sleeper</option>
+                    <option value="NonAC_Sleeper">Non A/C Sleeper</option>
+                    <option value="Seater">Seater</option>
+                </select>
+                <br><br>
+            </div>
+            <div>
+                <label for="cars">Seats Per Coach</label>
+                <input type="number" name="seats" required>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <br><br>
+
+    <table style="width: 100%;">
+        <tr>
+            <th>CoachID</th>
+            <th>Coach Type</th>
+            <th>Seat Count of Coach</th>
+            <th>Seat status</th>
+        </tr>
+        {% for record in data %}
+        <tr>
+            {% for attribute in record %}
+            <td>{{ attribute }}</td>
+            <td>{{ record[attribute].CoachType }}</td>
+            <td>{{ record[attribute].SeatsCount}}</td>
+            <td>
+                {% for seat in record[attribute].SeatDetails%}
+                <label>{{loop.index}}</label>
+                <input type="checkbox" value={{seat.bookedStatus}} {% if seat.bookedStatus %} checked {% endif %}
+                    readonly onclick="this.checked=!this.checked;">
+                {% endfor %}
+            </td>
+            <td>
+                <a href="/admin/update/{{attribute}}">Edit</a>
+                <a href="/admin/delete/{{attribute}}">Delete</a>
+            </td>
+
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        <!-- {% for row in data %}
+        
+        <tr>
+            <td>{{row}}</td>
+            <td>{{row.CoachID}}</td>
+            <td>{{row.CoachType}}</td>
+            <td>{{row.SeatsCount}}</td>
+            <td>
+                {% for seat in row.SeatDetails%}
+                <label>{{loop.index}}</label>
+                <input type="checkbox" value={{seat.bookedStatus}}   readonly>
+                {% endfor %}
+            </td>
+
+            <td>
+                <a href="/update/{{row.id}}">Edit</a>
+                <a href="/delete/{{row.id}}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %} -->
+    </table>
+
+</body>
+
+</html>

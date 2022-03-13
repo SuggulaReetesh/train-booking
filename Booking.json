@@ -1,0 +1,86 @@
+{
+    "Coaches": [
+        {
+            "Seater886": {
+                "CoachId": "Seater886",
+                "CoachType": "Seater",
+                "SeatsCount": "1",
+                "SeatDetails": [
+                    {
+                        "bookedStatus": true,
+                        "passengerName": "reetesh"
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": "jaswanth"
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": "jaswanth"
+                    }
+                ]
+            }
+        },
+        {
+            "Seater204": {
+                "CoachId": "Seater204",
+                "CoachType": "Seater",
+                "SeatsCount": "4",
+                "SeatDetails": [
+                    {
+                        "bookedStatus": false,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": false,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    },
+                    {
+                        "bookedStatus": true,
+                        "passengerName": ""
+                    }
+                ]
+            }
+        }
+    ]
+}

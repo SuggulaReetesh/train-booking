@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>User Dashboard</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>User Operations</h1>
+    <div>
+        <a href="/admin">Admin</a>
+        <a href="/user">user</a>
+    </div>
+    <div style="text-align: center;">
+        <div style="font-weight: bold;">Add New Coach to Train</div><br>
+        <form action="/user" method="post">
+            <div>
+                <label for="fname">Your name:</label>
+                <input type="text" id="fname" name="fname"><br><br>
+                <br><br>
+            </div>
+
+
+    </div>
+    <br><br>
+
+    <table style="width: 100%;">
+        <tr>
+            <th>Coach Type</th>
+            <th>Seat Count of Coach</th>
+            <th>Seat status</th>
+        </tr>
+        {% for record in data %}
+        <tr>
+            {% for attribute in record %}
+            <td>{{ record[attribute].CoachType }}</td>
+            <td>{{ record[attribute].SeatsCount}}</td>
+            <td>
+                {% for seat in record[attribute].SeatDetails%}
+                <label for={{record[attribute].CoachId+'_'+loop.index|string}}>{{loop.index}}</label>
+                <input type="checkbox" id={{record[attribute].CoachId+'_'+loop.index|string}} name=seatdetails value={{record[attribute].CoachId+'_'+loop.index|string}} {% if seat.bookedStatus
+                    %} disabled {% endif %} readonly onclick="">
+                {% endfor %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>
